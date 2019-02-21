@@ -34,7 +34,8 @@ function handleDecrement(evt) {
 function handleLike(evt) {
   const num = counter();
   likeNum(num);
-  displayLike(num);
+  // displayLike(num);
+  renderLikes();
 }
 
 function handlePause(evt) {
@@ -56,10 +57,20 @@ function likeNum(num) {
   }
 }
 
-function displayLike(num) {
-  const li = document.createElement('li');
-  li.innerText = `${num} has been liked ${likes[num]} time(s)`;
-  document.querySelector('.likes').appendChild(li);
+function createLikeElement(num) {
+  const like = document.createElement('li');
+  like.innerText = `${num} has been liked ${likes[num]} time(s)`;
+  // document.querySelector('.likes').appendChild(li);
+  return like;
+}
+
+function renderLikes() {
+  const likeList = document.querySelector('.likes');
+  likeList.innerHTML = ''; // reset list
+
+  Object.keys(likes).forEach(num => {
+    likeList.appendChild(createLikeElement(num));
+  });
 }
 
 function toggleGameplay() {
